@@ -1,0 +1,13 @@
+.box_one{
+    display: flex;
+    flex-direction: row;
+}
+.box_two{
+    display: flex;
+    flex-direction: column;
+}
+.box_three{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
