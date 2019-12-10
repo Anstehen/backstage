@@ -2,7 +2,7 @@
   <div class="home">
     <el-container class="content">
       <el-aside width="200px" class="left_bar">
-        <el-menu :default-openeds="['1', '3']">
+        <el-menu :default-openeds="['1']">
           <el-submenu index="1">
             <template slot="title"><i class="el-icon-news"></i>用户信息</template>
             <el-menu-item-group>
