@@ -22,40 +22,48 @@ const routes = [
     component:Home
   },
   {
-    path:"/home",
-    component: Home,
-    children: [
-        {
-            path: "/order",
-            component: Order
-        },
-        {
-            path: "/sign",
-            component: Sign
-        }
-    ]
-  },
+		path: '/',
+		component: Home,
+		name: '用户信息',
+		children: [
+      {
+				path: '/order',
+				component: Order,
+				name: 'order'
+			},
+			{
+				path: '/sign',
+				component: Sign,
+				name: 'sign'
+			},
+		]
+	},
   {
     path:"/home",
     component: Home,
+		name: '店铺资料', 
     children: [
         {
             path: "/store",
-            component: Store
+            component: Store,
+            name: 'store', 
         }
     ]
   },
   {
     path:"/home",
     component: Home,
+		name: '基本信息', 
     children: [
         {
             path: "/member",
-            component: Member
+            component: Member,
+            name: 'member', 
         },
         {
             path: "/news",
-            component: News
+            component: News,
+            name: 'news', 
         }
     ]
   },

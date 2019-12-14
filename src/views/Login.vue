@@ -33,7 +33,7 @@ export default {
     // 登录
     loginClick(){
         //直接跳转
-        this.$router.push('/Home');
+        this.$router.push('/Order');
  
         //带参数跳转
         // this.$router.push({path:'/testDemo',query:{setid:123456}});
