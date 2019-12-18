@@ -6,7 +6,6 @@ import Order from '../views/nav1/Order.vue'
 import Sign from '../views/nav1/Sign.vue'
 import Store from '../views/nav2/Store.vue'
 import Member from '../views/nav3/Member.vue'
-import News from '../views/nav3/News.vue'
 
 Vue.use(VueRouter)
 
@@ -59,11 +58,6 @@ const routes = [
             path: "/member",
             component: Member,
             name: 'member', 
-        },
-        {
-            path: "/news",
-            component: News,
-            name: 'news', 
         }
     ]
   },
