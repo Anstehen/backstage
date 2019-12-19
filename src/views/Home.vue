@@ -20,7 +20,6 @@
             <template slot="title"><i class="el-icon-menu"></i>基本信息</template>
             <el-menu-item-group>
               <el-menu-item index="/member">成员列表</el-menu-item>
-              <el-menu-item index="/news">我的信息</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
         </el-menu>

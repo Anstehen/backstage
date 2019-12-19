@@ -1,7 +1,9 @@
 <template>
   <div class="order box_two">
       <el-row>
-        <el-col :span="24">
+        <sysRulesManage></sysRulesManage>
+
+        <!-- <el-col :span="24">
           <div class="screen box_ten">
             <el-form :inline="true" :model="formInline" class="demo-form-inline">
               <el-form-item label="审批人">
@@ -18,7 +20,7 @@
               </el-form-item>
             </el-form>
           </div>
-        </el-col>
+        </el-col> -->
       </el-row>
       <el-row>
         <el-col :span="24">
@@ -47,11 +49,8 @@
           <div class="paging box_ten">
               <el-pagination
                 @current-change="handleCurrentChange"
-                :page-sizes="pageSize"
-                :page-size="100"
-                @size-change="handleSizeChange"
-                :current-page="currentPage"
-                layout="total, sizes, prev, pager, next, jumper"
+                :page-size="pageSize"
+                layout="prev, pager, next"
                 :total="total">
               </el-pagination>
           </div>
@@ -62,13 +61,15 @@
 
 <script>
 //导入组件
-// import search from '@/components/Search.vue';
+  import sysRulesManage from '@/components/Search.vue';
+
 export default {
   name: 'order',
   //注册组件
-  //  components:{
-  //     search
-  // },
+   components:{
+      sysRulesManage
+    },
+
   data(){
     return{
       formInline: {
@@ -150,7 +151,7 @@ export default {
       }],
       total:1200,
       pageSize:6,
-      currentPage:6
+      currentPage:1
     }
   },
   methods:{
@@ -167,7 +168,7 @@ export default {
     handleCurrentChange: function (val) {
         this.page = val;
         // this.getList();
-    },
+    }
   }
 }
 </script>
