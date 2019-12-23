@@ -1,26 +1,10 @@
 <template>
   <div class="order box_two">
-      <el-row>
-        <sysRulesManage></sysRulesManage>
-
-        <!-- <el-col :span="24">
-          <div class="screen box_ten">
-            <el-form :inline="true" :model="formInline" class="demo-form-inline">
-              <el-form-item label="审批人">
-                <el-input v-model="formInline.user" placeholder="审批人"></el-input>
-              </el-form-item>
-              <el-form-item label="活动区域">
-                <el-select v-model="formInline.region" placeholder="活动区域">
-                  <el-option label="区域一" value="shanghai"></el-option>
-                  <el-option label="区域二" value="beijing"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item>
-                <el-button type="primary" @click="onSubmit">查询</el-button>
-              </el-form-item>
-            </el-form>
-          </div>
-        </el-col> -->
+      <el-row class="condition">
+        <sysRulesManage ref="Search"></sysRulesManage>
+        <div class="search">
+            <el-button type="primary" @click="searchClick">搜 索</el-button>
+        </div>
       </el-row>
       <el-row>
         <el-col :span="24">
@@ -155,6 +139,14 @@ export default {
     }
   },
   methods:{
+    //搜索
+    searchClick(){
+      setTimeout(()=>{
+          //与子组件通信
+          this.$refs.Search.type = "1";
+          this.$refs.Search.init();
+      },60);
+    },
     onSubmit() {
       console.log('submit!');
     },
@@ -169,6 +161,9 @@ export default {
         this.page = val;
         // this.getList();
     }
+  },
+  created(){
+      
   }
 }
 </script>
@@ -176,6 +171,13 @@ export default {
   .order{
     width: 100%;
     height: 100%;
+    .condition{
+      width: 100%;
+      height: 180px;
+      .search{
+        margin-top: 12px;
+      }
+    }
     .count{
       min-height: 100px;
       border-radius: 4px;
