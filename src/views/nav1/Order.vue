@@ -1,10 +1,7 @@
 <template>
   <div class="order box_two">
       <el-row class="condition">
-        <sysRulesManage ref="Search"></sysRulesManage>
-        <div class="search">
-            <el-button type="primary" @click="searchClick">搜 索</el-button>
-        </div>
+        <sysRulesManage pagesType="1" @publicClick="queryClick"></sysRulesManage>
       </el-row>
       <el-row>
         <el-col :span="24">
@@ -21,7 +18,7 @@
                 <el-table-column prop="sex" label="是否购买过服务" width="166"></el-table-column>
                 <el-table-column fixed="right" label="操作" width="88">
                   <template slot-scope="scope">
-                    <el-button @click="handleClick(scope.row)" type="text" size="small">删 除</el-button>
+                    <el-button @click="deleteClick(scope.row)" type="text" size="small">删 除</el-button>
                   </template>
                 </el-table-column>
               </el-table>
@@ -140,13 +137,30 @@ export default {
   },
   methods:{
     //搜索
-    searchClick(){
-      setTimeout(()=>{
-          //与子组件通信
-          this.$refs.Search.type = "1";
-          this.$refs.Search.init();
-      },60);
+    queryClick(res){
+      // let self = this;
+      console.log(res);
     },
+    // 删除
+    deleteClick(){
+      let self = this;
+      self.$confirm('你确定要删除此用户么？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+          center: true
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+      });
+    },  
     onSubmit() {
       console.log('submit!');
     },
@@ -174,9 +188,6 @@ export default {
     .condition{
       width: 100%;
       height: 180px;
-      .search{
-        margin-top: 12px;
-      }
     }
     .count{
       min-height: 100px;
