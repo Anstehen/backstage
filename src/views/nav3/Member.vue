@@ -1,5 +1,6 @@
 <template>
   <div class="order box_two">
+      <el-button type="primary" plain class="addUser" @click="addUserClick">添 加</el-button>
       <el-row>
         <el-col :span="24">
           <div class="count box_ten">
@@ -39,7 +40,7 @@
           <span>登陆账号</span>
             <el-input
               placeholder="请输入内容"
-              v-model="input"
+              v-model="inputAccount"
               clearable
               style="width:66%;margin-left:1%;">
             </el-input>
@@ -48,7 +49,7 @@
           <span>登陆密码</span>
           <el-input
             placeholder="请输入内容"
-            v-model="input"
+            v-model="inputPassword"
             clearable
             style="width:66%;margin-left:1%;">
           </el-input>
@@ -57,7 +58,7 @@
           <span>手机号</span>
           <el-input
             placeholder="请输入内容"
-            v-model="input"
+            v-model="inputPhone"
             clearable
             style="width:66%;margin-left:1%;">
           </el-input>
@@ -162,14 +163,27 @@ export default {
       pageSize:6,
       currentPage:1,
       dialogVisible: false,
-      radio: '1'
+      radio: '1',
+      inputAccount:"",
+      inputPassword:"",
+      inputPhone:""
     }
   },
   methods:{
+    // 添加
+    addUserClick(){
+      let self = this;
+      self.dialogVisible = true;
+    },
     // 编辑
     editClick(){
       let self = this;
       self.dialogVisible = true;
+    },
+    // 关闭
+    handleClose(){
+      let self = this;
+      self.dialogVisible = false;
     },
     // 删除
     deleteClick(){
@@ -212,6 +226,11 @@ export default {
   .order{
     width: 100%;
     height: 100%;
+    .addUser{
+      position: absolute;
+      top: 12px;
+      left: 223px;;
+    }
     .condition{
       width: 100%;
       height: 180px;
