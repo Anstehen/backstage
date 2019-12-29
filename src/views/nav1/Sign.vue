@@ -18,8 +18,8 @@
                 <el-table-column label="资料" width="166">
                   <el-button type="primary" plain @click="lookMaterialClick">查看</el-button>
                 </el-table-column>
+                <el-table-column prop="phone" label="下单次数" width="126"></el-table-column>
                 <el-table-column fixed="right" label="操作" width="168">
-                  <el-button type="primary" @click="editClick">编 辑</el-button>
                   <el-button type="danger" @click="deleteClick">删 除</el-button>
                 </el-table-column>
               </el-table>

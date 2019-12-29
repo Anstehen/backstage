@@ -242,7 +242,7 @@
         methods: {
             searchClick(){
                 let self = this;
-                console.log(self.value2);
+                // console.log(self.value2);
                 // let sexStr = self.radio;
                 self.$emit("publicClick","popups");
             }
