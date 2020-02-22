@@ -137,9 +137,9 @@ export default {
   },
   methods:{
     //搜索
-    queryClick(res){
+    queryClick(){
       // let self = this;
-      console.log(res);
+      // console.log(res);
     },
     // 删除
     deleteClick(){
@@ -162,13 +162,13 @@ export default {
       });
     },  
     onSubmit() {
-      console.log('submit!');
+      // console.log('submit!');
     },
-    handleClick(row) {
-      console.log(row);
+    handleClick() {
+      // console.log(row);
     },
-    handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+    handleSizeChange() {
+      // console.log(`每页 ${val} 条`);
     },
     //分页器
     handleCurrentChange: function (val) {
