@@ -4,8 +4,11 @@
  *  **/
 import {get,post} from "./http"
 
-// 验证登录
+// 管理员---验证登录
 export const apiLogin = p => get('/hairstyle/administrators/check',p);
 
-// 添加管理员
+// 管理员---添加管理员
 export const apiAddLogin = p => post('/hairstyle/administrators/insert',p);
+
+// 店铺资料---店铺一栏---查询所有店铺信息
+export const storeQuertAll = p => get('/hairstyle/shop/selectAll',p);

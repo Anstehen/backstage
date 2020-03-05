@@ -1,21 +1,35 @@
 <template>
   <div class="order box_two">
-      <el-button type="primary" plain class="addUser" @click="addUserClick">添 加</el-button>
+      <el-button type="primary" plain class="addUser" @click="editClick(null)">添 加</el-button>
       <el-row>
         <el-col :span="24">
           <div class="count box_ten">
               <el-table :data="tableData" border style="width: 100%">
                 <el-table-column type="index" prop="index" label="编 号" width="66"> </el-table-column>
-                <el-table-column prop="name" label="店 名" width="230"></el-table-column>
-                <el-table-column prop="address" label="地 址" width="230"></el-table-column>
-                <el-table-column prop="phone" label="联系方式" width="180"></el-table-column>
-                <el-table-column label="图 片" width="160">
-                  <el-button type="primary" plain @click="itemPicturePoupu">编 辑</el-button>
+                <el-table-column prop="shopName" label="店 名" width="188"></el-table-column>
+                <el-table-column label="店铺照片" width="108">
+                  <div class="store_img" slot-scope="scope">
+                      <el-image 
+                        class="store_img_pic"
+                        :src="scope.row.shopAddressphoto" 
+                        :preview-src-list="previewPictureList"
+                        @click="previewPicture(scope.row.shopAddressphoto)">
+                      </el-image>
+                  </div>
                 </el-table-column>
-                <el-table-column prop="price" label="价 格" width="166"></el-table-column>
-                <el-table-column label="操作" width="266">
-                  <el-button type="primary" @click="editClick">编 辑</el-button>
-                  <el-button type="danger" @click="deleteClick">删 除</el-button>
+                <el-table-column prop="shopAddress" label="地 址" width="230"></el-table-column>
+                <el-table-column prop="shopCity" label="搜索地址" width="136"></el-table-column>
+                <el-table-column prop="mobilePhone" label="联系方式" width="180"></el-table-column>
+                <el-table-column label="图 片" width="160">
+                  <el-button type="primary" plain @click="itemPicturePoupu">查 看</el-button>
+                </el-table-column>
+                <el-table-column prop="haircutPrice" label="最低价格" width="88"></el-table-column>
+                <el-table-column prop="ironingPrice" label="最高价格" width="88"></el-table-column>
+                <el-table-column label="操作" width="188">
+                  <div slot-scope="scope">
+                    <el-button type="primary" @click="editClick(scope.row)">编 辑</el-button>
+                    <el-button type="danger" @click="deleteClick(scope.row)">删 除</el-button>
+                  </div>
                 </el-table-column>
               </el-table>
           </div>
@@ -35,14 +49,14 @@
       </el-row>
       <el-dialog
         title="用户信息"
-        :visible.sync="dialogVisible"
+        :visible.sync="addPopupShow"
         width="50%"
         :before-close="handleClose">
         <el-row>
           <span>店 名</span>
             <el-input
               placeholder="请输入内容"
-              v-model="inputStroe"
+              v-model="inputStroeName"
               clearable
               style="width:66%;margin-left:1%;">
             </el-input>
@@ -64,39 +78,50 @@
           <el-input-number v-model="numEnd" @change="popupEnd" :min="0" :max="10000" label="终止价格"></el-input-number>
         </el-row>
         <el-row style="margin-top:36px;">
-          <span>地址</span>
-          <el-select v-model="valueProvince" placeholder="请选择" class="region">
-            <el-option
-              v-for="item in provinceArr"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
-          <el-select v-model="valuecity" placeholder="请选择" class="region">
-            <el-option
-              v-for="item in cityArr"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
-          <el-select v-model="valueArea" placeholder="请选择" class="region">
-            <el-option
-              v-for="item in areaArr"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
+          <span>店铺地址</span>
+          <el-input
+            placeholder="请输入店铺地址"
+            v-model="inputStoreAddress"
+            clearable
+            style="width:66%;margin-left:1%;">
+          </el-input>
+        </el-row>
+        <el-row style="margin-top:36px;">
+          <span>搜索地址（例：郑州市）</span>
+          <el-input
+            placeholder="请输入搜索地址"
+            v-model="inputSearchAddress"
+            clearable
+            style="width:66%;margin-left:1%;">
+          </el-input>
         </el-row>
         <el-row style="margin-top:36px;">
           <span>图片</span>
           <el-button type="primary" plain class="picture" @click="editPictureClick">编 辑</el-button>
         </el-row>
+        <el-row class="box_four" style="margin-top:36px;">
+          <span>到店前的准备</span>
+          <el-input
+            type="textarea"
+            :rows="3"
+            placeholder="请输入到店前的准备"
+            v-model="inputBeforeStore"
+            style="width:66%;margin-left:2%;">
+          </el-input>
+        </el-row>
+        <el-row class="box_four" style="margin-top:36px;">
+          <span>到店后的注意事项</span>
+          <el-input
+            type="textarea"
+            :rows="3"
+            placeholder="请输入到店后的注意事项"
+            v-model="inputAfterStore"
+            style="width:66%;margin-left:2%;">
+          </el-input>
+        </el-row>
         <span slot="footer" class="dialog-footer">
-          <el-button @click="dialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+          <el-button @click="addPopupShow = false">取 消</el-button>
+          <el-button type="primary" @click="addPopupShow = false">确 定</el-button>
         </span>
       </el-dialog>
       <el-dialog
@@ -131,81 +156,66 @@
 </template>
 
 <script>
-
+import {storeQuertAll} from "../../api/api";
+import {judgeExist} from "../../assets/js/public";
+import {addressJson} from "../../assets/js/address";
 export default {
   name: 'store',
   data(){
     return{
-      formInline: {
-        user: '',
-        region: ''
-      },
-      tableData: [{
-        name: '海伦造型',
-        address: '浙江省行杭州市西湖区',
-        id:1234567890,
-        phone:14725836900,
-        price:"50~500",
-        age:23
-      }],
-      total:1200,
-      pageSize:6,
-      currentPage:1,
+      tableData: [],//表格数据
+      total:0,//总数
+      pageSize:6,//一页的数据
+      currentPage:1,//当前的页码
       dialogVisible: false,
       radio: '1',
-      inputStroe:"",
-      inputPhone:"",
-      provinceArr: [{
-          value: '选项1',
-          label: '浙江'
-        }, {
-          value: '选项2',
-          label: '河南'
-        }],
-        valueProvince: '',
-      cityArr: [{
-          value: '选项1',
-          label: '杭州'
-        }, {
-          value: '选项2',
-          label: '绍兴'
-        }],
-        valuecity: '',
-      areaArr: [{
-          value: '选项1',
-          label: '浙江'
-        }, {
-          value: '选项2',
-          label: '河南'
-        }],
-        valueArea: '',
-        numStart: 1,
-        numEnd:1,
-        dialogPicture:false,
-        dialogImageUrl: '',
-        dialogLoading: false,
-        unloadNumbber:12,
-        url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-        srcList: [
-          'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
-        ]
+      inputStroeName:"",//店名
+      inputPhone:"",//店铺电话
+      inputStoreAddress:"",//店铺地址
+      inputSearchAddress:"",//搜索地址
+      numStart: 1,
+      numEnd:1,
+      dialogPicture:false,
+      dialogImageUrl: '',
+      dialogLoading: false,
+      unloadNumbber:12,
+      url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+      srcList: [
+        'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
+      ],
+      inputBeforeStore:"",//到店前的准备
+      inputAfterStore:"",//到店后的注意事项
+      previewPictureList:[],//预览图片
+      addPopupShow:false,//添加店铺、修改店铺
     }
   },
   methods:{
     // 添加
     addUserClick(){
       let self = this;
-      self.dialogVisible = true;
+      self.addPopupShow = true;
+    },
+    // table 列表---图片预览
+    previewPicture(val){
+      // console.log(val);
+      let self = this;
+      self.previewPictureList = [val];
     },
     // 弹出框一：编辑
-    editClick(){
+    editClick(val){
       let self = this;
-      self.dialogVisible = true;
+      console.log(val);
+      if(judgeExist(val)){//修改
+
+      }else{//添加
+
+      }
+      self.addPopupShow = true;
     },
     // 弹出框一：关闭
     handleClose(){
       let self = this;
-      self.dialogVisible = false;
+      self.addPopupShow = false;
     },  
     // 弹出框一：起始价格
     popupStart(value) {
@@ -268,7 +278,20 @@ export default {
     }
   },
   created(){
-      
+    let self = this;
+    self.provinceArr = addressJson;
+    // 查询所有店铺
+    function pageData(){
+      let para = {};
+      storeQuertAll(para).then(res => {
+        // console.log(res);
+        self.tableData = res;
+        self.total = res.length;
+      }).catch(err =>{
+        console.log(err);
+      })
+    }
+    pageData();
   }
 }
 </script>
@@ -288,6 +311,15 @@ export default {
     .count{
       min-height: 100px;
       border-radius: 4px;
+      .store_img{
+        width: 68px;
+        height: 68px;
+        overflow: hidden;
+        .store_img_pic{
+          width: 68px;
+          height: 68px;
+        }
+      }
     }
     .screen {
       min-height: 100px;
