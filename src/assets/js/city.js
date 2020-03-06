@@ -104,10 +104,6 @@ export const cityAddrees = [
         label: '齐齐哈尔市'
     },
     {
-        value: '27',
-        label: '齐齐哈尔市'
-    },
-    {
         value: '28',
         label: '鹤岗市'
     },

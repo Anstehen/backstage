@@ -4,6 +4,9 @@
  *  **/
 import {get,post} from "./http"
 
+// 上传图片
+export const apiPicture = "http://localhost:8071/api/hairstyle/uploadFile";
+
 // 管理员---验证登录
 export const apiLogin = p => get('/hairstyle/administrators/check',p);
 
