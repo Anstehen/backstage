@@ -8,7 +8,7 @@ import {get,post} from "./http"
 export const apiPicture = "http://localhost:8071/api/hairstyle/uploadFile";
 
 // 管理员---验证登录
-export const apiLogin = p => get('/hairstyle/administrators/check',p);
+export const apiLogin = (p,tepyPara) => get('/hairstyle/administrators/check',tepyPara,p);
 
 // 管理员---查询所有管理员
 export const apiQueryAllPeople = p => get('/hairstyle/administrators/selectAll',p);

@@ -45,6 +45,7 @@ export default {
         adminPhone:self.accountIpt,
         password:self.passwordInput
       }
+      console.log(para)
       apiLogin(para).then(res => {
         // console.log(res);
         if(res.status == 200){
